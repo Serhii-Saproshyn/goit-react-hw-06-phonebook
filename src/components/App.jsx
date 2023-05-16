@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import { Form } from './Form/Form';
 import { Contacts } from './Contacts/Contacts';
@@ -11,10 +10,6 @@ export const App = () => {
   const { contacts } = useSelector(state => state.contacts);
   const { filter } = useSelector(state => state.filter);
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   localStorage.setItem('contacts', JSON.stringify(contacts));
-  // }, [contacts]);
 
   const onSubmitHandler = (name, number) => {
     const newContact = {
