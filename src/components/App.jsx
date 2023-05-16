@@ -5,16 +5,16 @@ import { Contacts } from './Contacts/Contacts';
 import { Filter } from './Filter/Filter';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact, deleteContact } from 'redux/contacts/contactsSlice';
-import { filterReducer } from 'redux/filter/filterSlice';
+import { filterContacts } from 'redux/filter/filterSlice';
 
 export const App = () => {
   const { contacts } = useSelector(state => state.contacts);
   const { filter } = useSelector(state => state.filter);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
+  // useEffect(() => {
+  //   localStorage.setItem('contacts', JSON.stringify(contacts));
+  // }, [contacts]);
 
   const onSubmitHandler = (name, number) => {
     const newContact = {
@@ -33,13 +33,12 @@ export const App = () => {
   };
 
   const handelChange = e => {
-    dispatch(filterReducer(e));
+    dispatch(filterContacts(e.target.value));
   };
-
   const handleDelete = id => {
     dispatch(deleteContact(id));
   };
-  const filterContacts = contacts.filter(contact =>
+  const filtredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
   );
 
@@ -56,7 +55,7 @@ export const App = () => {
 
       <h2>Contacts</h2>
       <Filter value={filter} onChange={handelChange} />
-      <Contacts contacts={filterContacts} onDelete={handleDelete} />
+      <Contacts contacts={filtredContacts} onDelete={handleDelete} />
     </div>
   );
 };
